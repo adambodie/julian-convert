@@ -1,7 +1,7 @@
 !/usr/bin/perl
 use warnings;
 use strict;
-#hellotk.plx
+#juliantodate.plx
 
 use Tkx;
 my $month;
