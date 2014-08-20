@@ -13,61 +13,59 @@ my $yearjul;
 my $date;
 
 Tkx::wm_title(".", "Date to Julian Converter");
-Tkx::ttk__frame(".c",  -padding => "3 3 12 12");
+Tkx::ttk__frame(".c",  -padding => "12 40 12 40");
 Tkx::grid( ".c", -column => 0, -row => 0, -sticky => "nwes");
 Tkx::grid_columnconfigure( ".", 0, -weight => 1);
 Tkx::grid_rowconfigure(".", 0, -weight => 1);
 Tkx::font_create("AppHighlightFont", -family=> "Arial", -size => 16, -weight => "bold");
 Tkx::ttk__separator(".c.sep", -orient => 'vertical');
-Tkx::grid(".c.sep", -column => 4, -rowspan => 5, -sticky => "ns");
+Tkx::grid(".c.sep", -column => 4, -rowspan => 7, -sticky => "ns");
+Tkx::ttk__style_theme_use("vista");
 
-#Row 0
+#Row 0- Title
 Tkx::grid( Tkx::ttk__label(".c.dtojbl", -text => "Date to Julian Converter", -font => "AppHighlightFont"), -column => 0, -row => 0, -columnspan => 4);
 Tkx::grid( Tkx::ttk__label(".c.jtodbl", -text => "Julian to Date Converter", -font => "AppHighlightFont"), -column => 4, -row => 0, -columnspan => 4);
 
-#Row 1
-Tkx::grid( Tkx::ttk__label(".c.molbl", -text => "Month"), -column => 0, -row => 1, -sticky => "w");
-Tkx::grid( Tkx::ttk__label(".c.dalbl", -text => "Day"), -column => 1, -row => 1, -sticky => "w");
-Tkx::grid( Tkx::ttk__label(".c.yrlbl", -text => "Year"), -column => 2, -row => 1, -sticky => "w");
-Tkx::grid( Tkx::ttk__label(".c.jdlbl", -text => "Julian"), -column => 5, -row => 1, -sticky => "w");
-Tkx::grid( Tkx::ttk__label(".c.yrjlbl", -text => "Year"), -column => 6, -row => 1, -sticky => "w");
+#Row 1 - Start Labels
+Tkx::grid( Tkx::ttk__label(".c.molbl", -text => "Month"), -column => 0, -row => 1);
+Tkx::grid( Tkx::ttk__label(".c.dalbl", -text => "Day"), -column => 1, -row => 1);
+Tkx::grid( Tkx::ttk__label(".c.yrlbl", -text => "Year"), -column => 2, -row => 1);
+Tkx::grid( Tkx::ttk__label(".c.jdlbl", -text => "Julian"), -column => 5, -row => 1);
+Tkx::grid( Tkx::ttk__label(".c.yrjlbl", -text => "Year"), -column => 6, -row => 1);
 
-#Row 2 - Date to Julian
-Tkx::ttk__entry(".c.month", -width => 14, -textvariable => \$month);
+#Row 2 - Start Entries
+Tkx::ttk__entry(".c.month", -width => 14, -justify => "center", -textvariable => \$month);
 Tkx::grid(".c.month", -column => 0, -row => 2, -sticky => "we");
-Tkx::ttk__entry(".c.day", -width => 7, -textvariable => \$day);
+Tkx::ttk__entry(".c.day", -width => 14, -justify => "center", -textvariable => \$day);
 Tkx::grid(".c.day", -column => 1, -row => 2, -sticky => "we");
-Tkx::ttk__entry(".c.year", -width => 7, -textvariable => \$year);
+Tkx::ttk__entry(".c.year", -width => 14, -justify => "center", -textvariable => \$year);
 Tkx::grid(".c.year", -column => 2, -row => 2, -sticky => "we");
 
-#Row 2 - Julian to Date
-
-Tkx::ttk__entry(".c.jul", -width => 20, -textvariable => \$jul);
+Tkx::ttk__entry(".c.jul", -width => 21, -justify => "center", -textvariable => \$jul);
 Tkx::grid(".c.jul", -column => 5, -row => 2, -sticky => "w");
-Tkx::ttk__entry(".c.yearjul", -width => 15, -textvariable => \$yearjul);
+Tkx::ttk__entry(".c.yearjul", -width => 21, -justify => "center", -textvariable => \$yearjul);
 Tkx::grid(".c.yearjul", -column => 6, -row => 2, -sticky => "w");
 
-#Row 3
-Tkx::grid( Tkx::ttk__label(".c.djlbl", -text => "Julian"), -column => 1, -columnspan => 2, -row => 3, -sticky => "w");
-Tkx::grid( Tkx::ttk__label(".c.datelbl", -text => "Date"), -column => 5, -row => 3, -sticky => "w");
+#Row 3 - End Labels
+Tkx::grid( Tkx::ttk__label(".c.djlbl", -text => "Julian"), -column => 1, -row => 3);
+Tkx::grid( Tkx::ttk__label(".c.datelbl", -text => "Date"), -column => 5, -row => 3, -columnspan => 2);
 
-#Row 4
-Tkx::ttk__entry(".c.julian", -width => 10, -textvariable => \$julian);
-Tkx::grid(".c.julian", -column => 0, -columnspan => 3, -row => 4, -sticky => "we");
-Tkx::ttk__entry(".c.date", -width => 30, -textvariable => \$date);
-Tkx::grid(".c.date", -column => 5, -columnspan => 2, -row => 4, -sticky => "w");
+#Row 4 - End Entries
+Tkx::ttk__entry(".c.julian", -width => 10, -justify => "center", -textvariable => \$julian);
+Tkx::grid(".c.julian", -column => 1, -row => 4, -sticky => "we");
+Tkx::ttk__entry(".c.date", -width => 20, -justify => "center", -textvariable => \$date);
+Tkx::grid(".c.date", -column => 5, -columnspan => 2, -row => 4);
 
-#Row 5
+#Row 5 - Buttons
 Tkx::ttk__button(".c.djcalc", -text => "Calculate", -command => sub {dateJulian();});
-Tkx::grid(".c.djcalc", -column => 1, -row => 5, -sticky => "w");
+Tkx::grid(".c.djcalc", -column => 1, -row => 5);
 Tkx::ttk__button(".c.jdcalc", -text => "Calculate", -command => sub {julianDate();});
-Tkx::grid(".c.jdcalc", -column => 5, -row => 5, -sticky => "w");
+Tkx::grid(".c.jdcalc", -column => 5, -row => 5, -columnspan => 2);
 
 foreach (Tkx::SplitList(Tkx::winfo_children(".c"))) {
     Tkx::grid_configure($_, -padx => 5, -pady => 5);
 }
 Tkx::focus(".c.month");
-#Tkx::bind(".", "<Return>", sub {calculate();});
 
 sub dateJulian {
      my $feb;
@@ -172,7 +170,7 @@ sub julianDate {
           Tkx::tk___messageBox(-message => "Not a valid date. Please Try Again.", -title => "Error");
      }
      if ($jul <= $d31) {
-          $date = "January $jul , $yearjul";    
+          $date = "January $jul , $yearjul";   
      } elsif ($jul <= ($d31 + $feb)) {
           $newjul = $jul - $d31;
           $date = "February $newjul , $yearjul";
