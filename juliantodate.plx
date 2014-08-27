@@ -1,71 +1,72 @@
 #!/usr/bin/perl
 use warnings;
 use strict;
+use Tkx;
 #juliantodate.plx
 
-use Tkx;
+
 my $month;
-my $day;
 my $year;
+my $day;
 my $julian;
 my $jul;
 my $yearjul;
 my $date;
 
-Tkx::wm_title(".", "Date to Julian Converter");
-Tkx::ttk__frame(".c",  -padding => "12 40 12 40");
-Tkx::grid( ".c", -column => 0, -row => 0, -sticky => "nwes");
-Tkx::grid_columnconfigure( ".", 0, -weight => 1);
-Tkx::grid_rowconfigure(".", 0, -weight => 1);
-Tkx::font_create("AppHighlightFont", -family=> "Arial", -size => 16, -weight => "bold");
-Tkx::ttk__separator(".c.sep", -orient => 'vertical');
-Tkx::grid(".c.sep", -column => 4, -rowspan => 7, -sticky => "ns");
-Tkx::ttk__style_theme_use("vista");
+my $wid = Tkx::widget->new(".");
+$wid->g_wm_title("Julian to Date Converter");
+$wid->g_grid_columnconfigure(0, -weight => 1);
+$wid->g_grid_rowconfigure(0, -weight => 1);
+my $labelframe = $wid->new_ttk__labelframe(-text => "Date to Julian Converter");
+$labelframe->g_grid(-column => 0, -row => 0, -sticky => "nwes");
+my $labelframe2 = $wid->new_ttk__labelframe(-text => "Julian to Date Converter");
+$labelframe2->g_grid(-column => 1, -row => 0, -sticky => "nwes");
 
-#Row 0- Title
-Tkx::grid( Tkx::ttk__label(".c.dtojbl", -text => "Date to Julian Converter", -font => "AppHighlightFont"), -column => 0, -row => 0, -columnspan => 4);
-Tkx::grid( Tkx::ttk__label(".c.jtodbl", -text => "Julian to Date Converter", -font => "AppHighlightFont"), -column => 4, -row => 0, -columnspan => 4);
+Tkx::font_create("AppHighlightFont", -family=> "Arial", -size => 16, -weight => "bold");
 
 #Row 1 - Start Labels
-Tkx::grid( Tkx::ttk__label(".c.molbl", -text => "Month"), -column => 0, -row => 1);
-Tkx::grid( Tkx::ttk__label(".c.dalbl", -text => "Day"), -column => 1, -row => 1);
-Tkx::grid( Tkx::ttk__label(".c.yrlbl", -text => "Year"), -column => 2, -row => 1);
-Tkx::grid( Tkx::ttk__label(".c.jdlbl", -text => "Julian"), -column => 5, -row => 1);
-Tkx::grid( Tkx::ttk__label(".c.yrjlbl", -text => "Year"), -column => 6, -row => 1);
+my $monthlabels = $labelframe->new_ttk__label(-text => "Month")->g_grid(-column => 0, -row => 1);
+my $daylabels = $labelframe->new_ttk__label(-text => "Day")->g_grid( -column => 1, -row => 1);
+my $yearlabels = $labelframe->new_ttk__label(-text => "Year")->g_grid(-column => 2, -row => 1);
+my $julianlabels = $labelframe2->new_ttk__label(-text => "Julian")->g_grid(-column => 0, -row => 1);
+my $yearjulianlabels = $labelframe2->new_ttk__label(-text =>"Year")->g_grid(-column => 1, -row => 1);
+
 
 #Row 2 - Start Entries
-Tkx::ttk__entry(".c.month", -width => 14, -justify => "center", -textvariable => \$month);
-Tkx::grid(".c.month", -column => 0, -row => 2, -sticky => "we");
-Tkx::ttk__entry(".c.day", -width => 14, -justify => "center", -textvariable => \$day);
-Tkx::grid(".c.day", -column => 1, -row => 2, -sticky => "we");
-Tkx::ttk__entry(".c.year", -width => 14, -justify => "center", -textvariable => \$year);
-Tkx::grid(".c.year", -column => 2, -row => 2, -sticky => "we");
+my $monthentry = $labelframe->new_ttk__entry(-width => 14, -justify => "center", -textvariable => \$month);
+$monthentry->g_grid(-column => 0, -row => 2, -sticky => "we");
+my $dayentry = $labelframe->new_ttk__entry(-width => 14, -justify => "center", -textvariable => \$day);
+$dayentry->g_grid(-column => 1, -row => 2, -sticky => "we");
+my $yearentry = $labelframe->new_ttk__entry(-width => 14, -justify => "center", -textvariable => \$year);
+$yearentry->g_grid(-column => 2, -row => 2, -sticky => "we");
+my $julianentry = $labelframe2->new_ttk__entry(-width => 21, -justify => "center", -textvariable => \$jul);
+$julianentry->g_grid(-column => 0, -row => 2, -sticky => "w");
+my $yearjulianentry = $labelframe2->new_ttk__entry(-width => 21, -justify => "center", -textvariable => \$yearjul);
+$yearjulianentry->g_grid(-column => 1, -row => 2, -sticky => "w");
 
-Tkx::ttk__entry(".c.jul", -width => 21, -justify => "center", -textvariable => \$jul);
-Tkx::grid(".c.jul", -column => 5, -row => 2, -sticky => "w");
-Tkx::ttk__entry(".c.yearjul", -width => 21, -justify => "center", -textvariable => \$yearjul);
-Tkx::grid(".c.yearjul", -column => 6, -row => 2, -sticky => "w");
 
 #Row 3 - End Labels
-Tkx::grid( Tkx::ttk__label(".c.djlbl", -text => "Julian"), -column => 1, -row => 3);
-Tkx::grid( Tkx::ttk__label(".c.datelbl", -text => "Date"), -column => 5, -row => 3, -columnspan => 2);
+my $julianlabele = $labelframe->new_ttk__label(-text => "Julian")->g_grid( -column => 1, -row => 3);
+my $datelabele = $labelframe2->new_ttk__label(-text => "Date")->g_grid(-column => 0, -row => 3, -columnspan => 2);
 
 #Row 4 - End Entries
-Tkx::ttk__entry(".c.julian", -width => 10, -justify => "center", -textvariable => \$julian);
-Tkx::grid(".c.julian", -column => 1, -row => 4, -sticky => "we");
-Tkx::ttk__entry(".c.date", -width => 20, -justify => "center", -textvariable => \$date);
-Tkx::grid(".c.date", -column => 5, -columnspan => 2, -row => 4);
+my $julianentrye = $labelframe -> new_ttk__entry(-width => 10, -justify => "center", -textvariable => \$julian);
+$julianentrye->g_grid(-column => 1, -row => 4, -sticky => "we");
+my $dateentrye = $labelframe2->new_ttk__entry(-width => 20, -justify => "center",  -textvariable => \$date);
+$dateentrye->g_grid(-column => 0, -row => 4, -columnspan => 2);
 
 #Row 5 - Buttons
-Tkx::ttk__button(".c.djcalc", -text => "Calculate", -command => sub {dateJulian();});
-Tkx::grid(".c.djcalc", -column => 1, -row => 5);
-Tkx::ttk__button(".c.jdcalc", -text => "Calculate", -command => sub {julianDate();});
-Tkx::grid(".c.jdcalc", -column => 5, -row => 5, -columnspan => 2);
+my $calcbutton = $labelframe->new_ttk__button(-text => "Calculate", -command => sub {dateJulian();});
+$calcbutton->g_grid(-column => 1, -row => 5);
+my $calcbutton2 = $labelframe2->new_ttk__button(-text => "Calculate", -command => sub {julianDate();});
+$calcbutton2->g_grid(-column => 0, -row => 5, -columnspan => 2);
 
-foreach (Tkx::SplitList(Tkx::winfo_children(".c"))) {
+foreach (Tkx::SplitList($labelframe->g_winfo_children)) {
     Tkx::grid_configure($_, -padx => 5, -pady => 5);
 }
-Tkx::focus(".c.month");
+foreach (Tkx::SplitList($labelframe2->g_winfo_children)) {
+    Tkx::grid_configure($_, -padx => 5, -pady => 5);
+}
 
 sub dateJulian {
      my $feb;
@@ -208,4 +209,5 @@ sub julianDate {
           Tkx::tk___messageBox(-message => "Not a valid date. Please Try Again.", -title => "Error");
      }
 }
+
 Tkx::MainLoop();
